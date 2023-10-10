@@ -6,9 +6,8 @@
 
 ### Dart - Install Homebrew
 
----
-
+```
 $brew tap dart-lang/dart
 $brew install dart
 
----
+```
