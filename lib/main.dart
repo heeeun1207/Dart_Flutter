@@ -7,9 +7,15 @@ void main (){
   runApp(
       MaterialApp( // 머터리얼 디자인 위젯
         home:Scaffold( // Scaffold 위젯
-          body:Center(
-            child: Text(
-              'Hello World',
+          body:SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              // 여러 위젯을 Column 위젯에 입력 가능
+              children: [
+                Text('Hello'),
+                Text('World'),
+              ],
           ),
         ),
       ),
