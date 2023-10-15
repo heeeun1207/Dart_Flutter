@@ -10,20 +10,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.red,
-              border: Border.all(
-                width: 16.0,
-                color: Colors.black,
-              ),
-              borderRadius: BorderRadius.circular(
-                16.0,
-              ),
-            ),
+          child:SizedBox(
+            // 높이 지정
             height: 200.0,
-              width: 100.0,
-          ),
+
+            // 너비 지정
+            width: 200.0,
+
+            //* 사이즈 박스 크기 확인용으로 색 추가
+            child: Container(
+              color: Colors.red,
+            ),
+          )
         ),
       ),
     );
