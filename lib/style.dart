@@ -9,34 +9,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
+        //* 핸드폰은 크기나 디자인이 매우 다양하다
+        // 특히 아이폰의 노치 디자인처럼 (상단 일부가 파여있는 형태)
+        // SafeArea를 사용하여 기기별 예외 처리를 하지않고 안전한 화면만 위젯에 그릴 수 있다.
+        body: SafeArea(
+          // 원하는 부분만 따로 적용할 수 있다.
+          // true 적용 false 미적용
+          top: true,
+          bottom: true,
+          left: true,
+          right: true,
           child: Container(
-            color: Colors.black,
-
-            // 중간 파란 컨테이너
-            child: Container(
-              color: Colors.blue,
-
-              // 마진 적용 위치
-              margin: EdgeInsets.all(16.0),
-
-              // 패딩 적용
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                // 패딩이 적용된 빨간 컨테이너
-                child: Container(
-                  color: Colors.red,
-                  width: 50,
-                  height: 50,
-                ),
-              ),
-            ),
+            color: Colors.red,
+            height: 300.0,
+            width: 300.0,
           ),
         ),
       ),
     );
   }
 }
-
-// 패딩은 적용된 위젯이 차지하는 크기 내부에서 간격이 추가된다
-// 마진을 따로 위젯이 사용하지않고, 컨테이너 위젯에 추가 할 수있다 ( 많이 사용되진 않음)
