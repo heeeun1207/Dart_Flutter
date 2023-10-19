@@ -15,6 +15,8 @@ class SplashScreen extends StatelessWidget {
             color: Color(0xfff99231),
           ),
           child: Column(
+            // 가운데 정렬 추가
+            mainAxisAlignment: MainAxisAlignment.center,
             children:[
               // 1 여러 위젯을 입력할 수 있는 children 매개변수
               Image.asset(
