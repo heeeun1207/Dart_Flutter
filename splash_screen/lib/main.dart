@@ -11,10 +11,14 @@ class SplashScreen extends StatelessWidget {
       home: Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            color: Colors.orange,
+            // 헥스코드(hex code)
+            color: Color(0xfff99231),
           ),
           child: Center(
-            child: Text('Splash Screen'),
+            child: Image.asset(
+              // 매개변수로 파일 위치 적기
+              'assets/logo.png',
+            ),
           ),
         ),
       ),
