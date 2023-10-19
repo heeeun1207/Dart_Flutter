@@ -14,11 +14,15 @@ class SplashScreen extends StatelessWidget {
             // 헥스코드(hex code)
             color: Color(0xfff99231),
           ),
-          child: Center(
-            child: Image.asset(
+          child: Column(
+            children:[
+              // 1 여러 위젯을 입력할 수 있는 children 매개변수
+              Image.asset(
               // 매개변수로 파일 위치 적기
               'assets/logo.png',
             ),
+            CircularProgressIndicator(),
+            ],
           ),
         ),
       ),
