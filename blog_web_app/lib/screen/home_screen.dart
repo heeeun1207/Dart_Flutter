@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// 웹뷰 플러그인 임포트
+import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   // const 생성자
@@ -14,7 +16,10 @@ class HomeScreen extends StatelessWidget {
         // 가운데 정렬
         centerTitle: true,
       ),
-      body: Text('home screen'),
+      body: WebView( // WebView 추가
+        initialUrl: 'https://www.naver.com',
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
     );
   }
 }
