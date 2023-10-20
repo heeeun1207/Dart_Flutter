@@ -16,6 +16,25 @@ class HomeScreen extends StatelessWidget {
         title: Text('Blog web app'),
         // 가운데 정렬
         centerTitle: true,
+        // AppBar의 actions 매개변수
+        actions: [
+          IconButton(
+
+              // 눌렀을 때 콜백 함수 설정
+              onPressed: (){
+                if (controller != null){
+
+                  // 웹뷰에서 보여줄 사이트 실행
+                  controller!.loadUrl('https://blog.codefactory.ai');
+                }
+              },
+
+              // 홈 버튼 아이콘 설정
+              icon: Icon(
+                Icons.home,
+              ),
+          ),
+        ],
       ),
       body: WebView( // WebView 추가
         // 웹뷰 생성 함수
