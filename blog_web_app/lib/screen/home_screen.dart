@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                 if (controller != null){
 
                   // 웹뷰에서 보여줄 사이트 실행
-                  controller!.loadUrl('https://blog.codefactory.ai');
+                  controller!.loadUrl('https://www.naver.com');
                 }
               },
 
