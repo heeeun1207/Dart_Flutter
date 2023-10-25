@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:async'; // async 패키지 불러오기
 
-class HomeScreen extends StatelessWidget {
+// StatefulWidget 위젯 정의
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+// _HomeScreenState 정의
+class _HomeScreenState extends State<HomeScreen>{
+
+  // initState() 함수 등록
+  @override
+  void initState(){
+    super.initState(); // 부모 initState() 실행
+
+    Timer.periodic(
+      Duration(seconds: 3),
+          (timer) {
+        print('실행!');
+      },
+    );
+}
   @override
   Widget build(BuildContext context) {
     // 상태바 색상 변경     .light .dark
