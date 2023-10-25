@@ -6,6 +6,7 @@ class HomeScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Colors.pink[100],
       body: SafeArea( // 시스템 UI 피해서 UI 그리기
         top: true,
         bottom: false,
@@ -35,6 +36,13 @@ class _DDay extends StatelessWidget {
 class _CoupleImage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
-    return Text('Image Widget');
+    return Center(
+      child: Image.asset(
+      'asset/img/middle_image.png',
+
+      // 화면에 반만큼 높이 구현
+      height: MediaQuery.of(context).size.height/ 2,
+      ),
+    );
   }
 }
