@@ -29,11 +29,15 @@ class HomeScreen extends StatelessWidget{
 class _DDay extends StatelessWidget {
   @override
   Widget build(BuildContext context){
+    // 테마 불러오기
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
       children: [
         const SizedBox(height: 16.0),
         Text( // 최상단의 U&I 텍스트
           'U&I',
+          style: textTheme.headline1,
         ),
         const SizedBox(height: 16.0),
         Text( // 두 번째 글자
