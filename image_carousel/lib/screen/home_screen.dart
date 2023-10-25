@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // 상태바 색상 변경     .light .dark
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
     return Scaffold(
       body: PageView(
         // PageView는 여러 개의 위젯을 독립적인 페이지로 표시하며, 사용자가 페이지를 가로 또는 세로로 스와이프하여 넘길 수 있는 위젯
