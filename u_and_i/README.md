@@ -7,7 +7,7 @@
 ## 사전지식
 
 - setState()
-- ShowCupertionDialog()
+- ShowCupertinoDialog()
 
 ### 집중할 요소
 
