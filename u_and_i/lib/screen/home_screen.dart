@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget{
-  const HomeScreen ({Key? key}) : super (key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super (key: key);
 
   @override
-  Widget build(BuildContext context){
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DateTime firstDay = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pink[100],
       body: SafeArea( // 시스템 UI 피해서 UI 그리기
@@ -17,16 +24,35 @@ class HomeScreen extends StatelessWidget{
           // 반대축 최대 크기로 늘리기
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _DDay(), // _첫글자가 언더스코어이면 다른 파일에서 접근할 수 없다.
-            _CoupleImage() // 파일을 불러오기 했을 때 불필요한 값들이 한 번에 불러와지는 걸 방지할 수있다.
+            _DDay( // _첫글자가 언더스코어이면 다른 파일에서 접근할 수 없다.
+
+              // 하트 눌렀을 때 실행할 함수 전달하기
+              onHeartPressed: onHeartPressed,
+            ),
+            _CoupleImage()
           ],
         ),
       ),
     );
   }
+
+
+  void onHeartPressed() {   // 하트 눌렀을 때 실행할 함수
+    print('클릭');
+  }
 }
 
+
+
 class _DDay extends StatelessWidget {
+
+  // 하트 눌렀을 때 실행할 함수
+  final GestureTapCallback onHeartPressed;
+
+  _DDay ({
+    required this.onHeartPressed, // 상위에서 함수 입력 받기
+});
+
   @override
   Widget build(BuildContext context){
     // 테마 불러오기
@@ -51,7 +77,7 @@ class _DDay extends StatelessWidget {
         const SizedBox(height: 16.0),
         IconButton(
           iconSize: 60.0,
-          onPressed: () {},
+          onPressed:onHeartPressed, // 아이콘 눌렀을 때 실행할 함수
           icon: const Icon(
             Icons.favorite,
             color: Colors.red,
