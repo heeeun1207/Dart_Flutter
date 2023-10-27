@@ -126,15 +126,27 @@ class _DDay extends StatelessWidget {
 class _CoupleImage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
-    return Expanded( // Expanded 위젯 - 오버플로 해결 하기
-    child : Center(
+    return Center(
       child: Image.asset(
-      'asset/img/middle_image.png',
-
-      // 화면에 반만큼 높이 구현 -> Expanded 가 우선 순위를 갖게 되어 무시된다.
-      height: MediaQuery.of(context).size.height/ 2,
-      ),
+        'asset/img/middle_image.png',
+        height: MediaQuery.of(context).size.height / 2,
       ),
     );
   }
 }
+
+// class _CoupleImage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context){
+//     return Expanded( // Expanded 위젯 - 오버플로 해결 하기
+//     child : Center(
+//       child: Image.asset(
+//       'asset/img/middle_image.png',
+//
+//       // 화면에 반만큼 높이 구현 -> Expanded 가 우선 순위를 갖게 되어 무시된다.
+//       height: MediaQuery.of(context).size.height/ 2,
+//       ),
+//       ),
+//     );
+//   }
+// }
