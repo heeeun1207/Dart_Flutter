@@ -45,13 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
     showCupertinoDialog( // 1. 쿠퍼티노 다이얼로그 실행
         context: context, // 2. 보여줄 다이얼로그 빌드
         builder: (BuildContext context) {
-          // 3. 날짜 선택하는 다이얼로그
-          return CupertinoDatePicker(
-            // 4. 시간은 제외하고 날짜만 선택하기
-            mode: CupertinoDatePickerMode.date,
-            onDateTimeChanged: (DateTime date) {},
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.white,
+              height: 300,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                onDateTimeChanged: (DateTime date) {},
+              ),
+            ),
           );
         },
+      barrierDismissible: true, // 외부 탭할 경우 다이얼로그 닫기
     );
   }
 }
