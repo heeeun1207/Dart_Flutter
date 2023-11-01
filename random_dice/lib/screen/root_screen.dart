@@ -20,7 +20,19 @@ TickerProviderStateMixin {
     super.initState();
 
     controller = TabController(length: 2, vsync: this); // 컨트롤러 초기화하기
+    // 1. 컨트롤러 속성이 변경될 때마다 실행할 함수 등록하기
+    controller!.addListener(tabListener);
   }
+  tabListener(){  // 2. 리스너로 사용할 함수
+    setState(() {});
+  }
+
+  @override
+  dispose(){
+    controller!.removeListener(tabListener); // 3. 리스너에 등록한 함수 취소
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,16 @@ TickerProviderStateMixin {
 
   BottomNavigationBar renderBottomNavigation() {
     // 탭 내비게이션을 구현하는 위젯
-    return BottomNavigationBar(items: [
+    return BottomNavigationBar(
+      // 4. 현재 화면에 렌더링되는 탭의 인덱스
+      currentIndex: controller!.index,
+      onTap: (int index){ // 5. 탭이 선택될때마다 실행되는 함수
+        setState(() {
+          controller!.animateTo(index);
+        });
+      },
+
+      items: [
       BottomNavigationBarItem(
         icon: Icon(
           Icons.edgesensor_high_outlined,
