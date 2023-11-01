@@ -35,7 +35,28 @@ TickerProviderStateMixin {
   }
 
   List<Widget> renderChildren() {
-    return [];
+    return [
+      Container( // 홈 탭
+        child: Center(
+          child: Text(
+            'Tab 1',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      Container( // 설정 스크린 탭
+        child: Center(
+          child: Text(
+            'Tab 2',
+            style: TextStyle(
+             color: Colors.white,
+          ),
+        ),
+       ),
+      ),
+    ];
   }
 
   BottomNavigationBar renderBottomNavigation() {
