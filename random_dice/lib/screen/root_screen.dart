@@ -57,6 +57,7 @@ TickerProviderStateMixin {
     );
   }
 }
+
 // TabController 에서 vsync 기능을 사용하려면 필수로 TickerProviderStateMixin 사용해야 한다.
 // TickerProviderStateMixin 와 SingleTickerProviderStateMixin 애니메이션 효율을 올려주는 역할을 한다.
 // TabController의 length의 매개변수에 탭 개수를 int로 제공하고,
