@@ -11,36 +11,52 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> with
-TickerProviderStateMixin{ // TickerProviderStateMixin 사용하기
+TickerProviderStateMixin {
+  // TickerProviderStateMixin 사용하기
   TabController? controller; // 사용할 탭 컨트롤러 선언
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
-        controller =TabController(length: 2, vsync: this); // 컨트롤러 초기화하기
+    controller = TabController(length: 2, vsync: this); // 컨트롤러 초기화하기
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(  // 앱 화면을 보여줄 위젯
-        controller: controller,  // ! 컨트롤러 등록하기
+      body: TabBarView( // 앱 화면을 보여줄 위젯
+        controller: controller, // ! 컨트롤러 등록하기
         children: renderChildren(),
       ),
       // 아래 탭 내비게이션을 구현하는 매개변수
       bottomNavigationBar: renderBottomNavigation(),
     );
   }
-  List<Widget> renderChildren(){
+
+  List<Widget> renderChildren() {
     return [];
   }
-  BottomNavigationBar renderBottomNavigation(){
+
+  BottomNavigationBar renderBottomNavigation() {
     // 탭 내비게이션을 구현하는 위젯
-    return BottomNavigationBar(items: []);
+    return BottomNavigationBar(items: [
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.edgesensor_high_outlined,
+        ),
+        label: '주사위',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.settings,
+        ),
+        label: '설정',
+      ),
+    ],
+    );
   }
 }
-
 // TabController 에서 vsync 기능을 사용하려면 필수로 TickerProviderStateMixin 사용해야 한다.
 // TickerProviderStateMixin 와 SingleTickerProviderStateMixin 애니메이션 효율을 올려주는 역할을 한다.
 // TabController의 length의 매개변수에 탭 개수를 int로 제공하고,
@@ -52,4 +68,4 @@ TickerProviderStateMixin{ // TickerProviderStateMixin 사용하기
 // 정리 : 이해하고 넘어가기
 // TabBarView는 TabController가 필수이다.
 // 추가적으로 TabController를 초기화하려면 vsync 기능이 필요한데 이는 State 위젯에
-// TickerProviderMixin 을 mixin으로 제공해줘야 사용할 수 있다.
+// TickerProviderMixin 을 mixin으로 제공해줘야 사용할 수 있다
