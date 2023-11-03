@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:random_dice/screen/home_screen.dart';
 import 'package:random_dice/screen/settings_screen.dart';
+import 'package:shake/shake.dart';
 
 // BottomNavigationBar 아래에 배치하고,
 // 남는 공간에 TabBarView 위치시켜서 스크린 전환이 가능한 구조로 구현한다.
@@ -17,25 +19,41 @@ TickerProviderStateMixin {
   // TickerProviderStateMixin 사용하기
   TabController? controller; // 사용할 탭 컨트롤러 선언
   double threshold= 2.7; // 민감도의 기본값 설정
+  int number = 1; // 주사위 숫자
+  ShakeDetector? shakeDetector;
 
   @override
   void initState() {
     super.initState();
 
     controller = TabController(length: 2, vsync: this); // 컨트롤러 초기화하기
-    // 1. 컨트롤러 속성이 변경될 때마다 실행할 함수 등록하기
+    // 컨트롤러 속성이 변경될 때마다 실행할 함수 등록하기
     controller!.addListener(tabListener);
+
+    shakeDetector = ShakeDetector.autoStart( // 1. 흔들기 감지 즉시 시작
+      shakeSlopTimeMS: 100, // 2. 감지 주기
+      shakeThresholdGravity: threshold, // 3. 감지 민감도
+      onPhoneShake: onPhoneShake, // 4. 감지 후 실행할 함수
+    );
   }
-  tabListener(){  // 2. 리스너로 사용할 함수
+  void onPhoneShake(){ // 5. 감지 후 실행할 함수
+    final rand = new Random(); // dart:math 기본제공하는 Random 클래스 사용
+
+    setState(() {
+      number = rand.nextInt(5) + 1;
+    });
+  }
+
+  tabListener(){  // 리스너로 사용할 함수
     setState(() {});
   }
 
   @override
   dispose(){
-    controller!.removeListener(tabListener); // 3. 리스너에 등록한 함수 취소
+    controller!.removeListener(tabListener); // 리스너에 등록한 함수 취소
+    shakeDetector!.stopListening(); // 6. 흔들기 감지 중지
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +70,7 @@ TickerProviderStateMixin {
   List<Widget> renderChildren() {
     return [
       // Container의 Text 삭제하고 number값 1 입력해서 임시로 보여주기
-      HomeScreen(number: 1),
+      HomeScreen(number: number), // 임의 1 -> number 변수로 대체
       SettingsSreen( // 기존에 있던 Container 코드 SettingsSreen 교체
           threshold: threshold,
           onThresholdChange: onThresholdChange,
@@ -69,9 +87,9 @@ TickerProviderStateMixin {
   BottomNavigationBar renderBottomNavigation() {
     // 탭 내비게이션을 구현하는 위젯
     return BottomNavigationBar(
-      // 4. 현재 화면에 렌더링되는 탭의 인덱스
+      // 현재 화면에 렌더링되는 탭의 인덱스
       currentIndex: controller!.index,
-      onTap: (int index){ // 5. 탭이 선택될때마다 실행되는 함수
+      onTap: (int index){ // 탭이 선택될때마다 실행되는 함수
         setState(() {
           controller!.animateTo(index);
         });
