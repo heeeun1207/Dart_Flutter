@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_dice/screen/home_screen.dart';
 
 // BottomNavigationBar 아래에 배치하고,
 // 남는 공간에 TabBarView 위치시켜서 스크린 전환이 가능한 구조로 구현한다.
@@ -48,16 +49,8 @@ TickerProviderStateMixin {
 
   List<Widget> renderChildren() {
     return [
-      Container( // 홈 탭
-        child: Center(
-          child: Text(
-            'Tab 1',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
+      // Container의 Text 삭제하고 number값 1 입력해서 임시로 보여주기
+      HomeScreen(number: 1),
       Container( // 설정 스크린 탭
         child: Center(
           child: Text(
