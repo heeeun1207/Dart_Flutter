@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_dice/screen/home_screen.dart';
+import 'package:random_dice/screen/settings_screen.dart';
 
 // BottomNavigationBar 아래에 배치하고,
 // 남는 공간에 TabBarView 위치시켜서 스크린 전환이 가능한 구조로 구현한다.
@@ -15,6 +16,7 @@ class _RootScreenState extends State<RootScreen> with
 TickerProviderStateMixin {
   // TickerProviderStateMixin 사용하기
   TabController? controller; // 사용할 탭 컨트롤러 선언
+  double threshold= 2.7; // 민감도의 기본값 설정
 
   @override
   void initState() {
@@ -51,17 +53,17 @@ TickerProviderStateMixin {
     return [
       // Container의 Text 삭제하고 number값 1 입력해서 임시로 보여주기
       HomeScreen(number: 1),
-      Container( // 설정 스크린 탭
-        child: Center(
-          child: Text(
-            'Tab 2',
-            style: TextStyle(
-             color: Colors.white,
-          ),
-        ),
-       ),
+      SettingsSreen( // 기존에 있던 Container 코드 SettingsSreen 교체
+          threshold: threshold,
+          onThresholdChange: onThresholdChange,
       ),
     ];
+  }
+  // 슬라이더값 변경 시 실행 함수
+  void onThresholdChange(double val){
+    setState(() {
+      threshold =val;
+    });
   }
 
   BottomNavigationBar renderBottomNavigation() {
