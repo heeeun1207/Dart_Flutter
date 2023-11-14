@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vid_player/screen/home_screen.dart';
+import 'package:video_playerapp/screen/home_screen.dart';
 
 void main(){
   runApp(
