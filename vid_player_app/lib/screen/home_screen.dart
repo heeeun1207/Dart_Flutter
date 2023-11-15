@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+// 1.CustomVideoPlayer 위젯 파일 임포트
+import 'package:vid_player_app/components/custom_video_player.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen ({Key? key}) : super(key: key);
@@ -68,7 +69,11 @@ class _HomeScreenState extends State<HomeScreen>{
   }
 
   Widget renderVideo(){
-    return Container();
+    return Center(
+      child: CustomVideoPlayer(
+        video: video!, // 2. 선택된 동영상 입력
+      )
+    );
   }
 }
 
@@ -121,3 +126,4 @@ class _AppName extends StatelessWidget{
     );
   }
 }
+
