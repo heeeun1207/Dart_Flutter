@@ -1,9 +1,10 @@
 //CustomVideoPlayer 위젯은 HomeScreen 위젯에서 선택된 동영상을 재생하는 모든 상태를 관리한다.
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
+import 'dart:io'; // 파일 관련 작업 패키지
 
 class CustomVideoPlayer extends StatefulWidget {
-
   // 선택된 동영상을 저장할 변수
   // XFile은 ImagePicker로 영상 또는 이미지를 선택했을 때 반환하는 타입
   final XFile video;
@@ -18,17 +19,44 @@ class CustomVideoPlayer extends StatefulWidget {
 }
 
 class _CustomVideoPlayer extends State<CustomVideoPlayer> {
+  // 1.동영상을 조작하는 컨트롤러
+  VideoPlayerController? videoController;
+  @override
+  void initState() {
+    super.initState();
+
+    initializeController(); // 2.컨트롤러 초기화
+  }
+
+  initializeController() async {
+    // 3.선택한 동영상으로 컨트롤러 초기화
+    final videoController = VideoPlayerController.file(
+      File(widget.video.path),
+    );
+
+    await videoController.initialize();
+
+    setState(() {
+      this.videoController = videoController;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'CustomVideoPlayer', // 임시
-        style: TextStyle(
-          color: Colors.white,
-        ),
+    // 4.선택한 컨트롤러가 준비 중일 때 로딩 표시
+    if (videoController == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return AspectRatio(
+      // 5.동영상 비율에 따른 화면 렌더링
+      aspectRatio: videoController!.value.aspectRatio,
+      child: VideoPlayer(
+        videoController!,
       ),
     );
   }
 }
-
 // 1. 로고를 클릭하고, 동영상을 선택하면 위젯이 잘 렌더링 되는지 확인(CustomVideoPlayer 확인)
