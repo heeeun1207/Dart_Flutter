@@ -63,8 +63,16 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
             right: 0,
             left: 0,
             child: Slider( // 동영상 재생 상태를 보여주는 슬라이더
-              onChanged: (double val){},
-              value: 0,
+
+              // 슬라이더가 이동할 때마다 실행할 함수
+              onChanged: (double val){
+                videoController!.seekTo(
+                  Duration(seconds: val.toInt()),
+                );
+              },
+
+              // 동영상 재생 위치를 초 단위로 표현
+              value: videoController!.value.position.inSeconds.toDouble(),
               min: 0,
               max: videoController!.value.duration.inSeconds.toDouble(),
             ),
