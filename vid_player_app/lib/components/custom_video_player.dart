@@ -1,6 +1,7 @@
 //CustomVideoPlayer 위젯은 HomeScreen 위젯에서 선택된 동영상을 재생하는 모든 상태를 관리한다.
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vid_player_app/components/custom_icon_button.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:io'; // 파일 관련 작업 패키지
 
@@ -75,6 +76,34 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
               value: videoController!.value.position.inSeconds.toDouble(),
               min: 0,
               max: videoController!.value.duration.inSeconds.toDouble(),
+            ),
+          ),
+          Align( // 오른쪽 위 : 새 동영상 아이콘 배치
+            alignment:Alignment.topRight,
+            child: CustomIconButton(
+              onPressed: (){},
+              iconData: Icons.photo_camera_back,
+            ),
+          ),
+          Align( // 중앙 : 동영상 재생 관련 아이콘
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CustomIconButton(   // 되감기 버튼
+                    onPressed: (){},
+                    iconData: Icons.rotate_left
+                ),
+                CustomIconButton(  // 재생 버튼
+                    onPressed: (){},
+                    iconData: videoController!.value.isPlaying ?
+                        Icons.pause : Icons.play_arrow,
+                ),
+                CustomIconButton( // 앞으로 감기 버튼
+                    onPressed: (){},
+                    iconData: Icons.rotate_right,
+                ),
+              ],
             ),
           ),
         ],
