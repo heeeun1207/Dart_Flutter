@@ -91,16 +91,16 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomIconButton(   // 되감기 버튼
-                    onPressed: (){},
+                    onPressed: onReversePressed,
                     iconData: Icons.rotate_left
                 ),
                 CustomIconButton(  // 재생 버튼
-                    onPressed: (){},
+                    onPressed: onPlayPressed,
                     iconData: videoController!.value.isPlaying ?
                         Icons.pause : Icons.play_arrow,
                 ),
                 CustomIconButton( // 앞으로 감기 버튼
-                    onPressed: (){},
+                    onPressed: onForwardPressed,
                     iconData: Icons.rotate_right,
                 ),
               ],
@@ -110,5 +110,40 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
       ),
     );
   }
+
+void onReversePressed() {
+  final currentPosition = videoController!.value.position;
+
+  Duration position = Duration();
+
+  if (currentPosition.inSeconds > 3) {
+    position = currentPosition - Duration(seconds: 3);
+  }
+
+  videoController!.seekTo(position);
+}
+
+void onForwardPressed() { // 앞으로 감기 버튼 눌렀을 때 실행할 함수
+  final maxPosition = videoController!.value.duration; // 동영상 길이
+  final currentPosition = videoController!.value.position;
+
+  Duration position = maxPosition; // 동영상 길이로 실행 위치 초기화
+
+  // 동영상 길이에서 3초를 뺀 값보다 현재 위치가 짧을 때만 3초 더하기  = 3초 넘기기
+  if((maxPosition - Duration(seconds: 3)).inSeconds >
+      currentPosition.inSeconds){
+    position = currentPosition + Duration(seconds: 3);
+  }
+
+  videoController!.seekTo(position);
+}
+
+void onPlayPressed(){
+  if (videoController!.value.isPlaying){
+    videoController!.pause();
+  }else{
+    videoController!.play();
+  }
+}
 }
 // 1. 로고를 클릭하고, 동영상을 선택하면 위젯이 잘 렌더링 되는지 확인(CustomVideoPlayer 확인)
