@@ -10,22 +10,25 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>{
+class _HomeScreenState extends State<HomeScreen> {
   XFile? video;
 
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
 
-      body: video==null ? renderEmpty() : renderVideo(),
+      body: video == null ? renderEmpty() : renderVideo(),
     );
   }
 
-  Widget renderEmpty(){
+  Widget renderEmpty() {
     return Container(
-      width: MediaQuery.of(context).size.width, // 넓이 최대로 늘려주기
+      width: MediaQuery
+          .of(context)
+          .size
+          .width, // 넓이 최대로 늘려주기
       decoration: getBoxDecoration(), // 그라데이션 함 값 가져오기
       child: Column(
 
@@ -41,20 +44,20 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
-  void onNewVideoPressed() async {  // 이미지 선택하는 기 구현한 함수
+  void onNewVideoPressed() async {
+    // 이미지 선택하는 기 구현한 함수
     final video = await ImagePicker().pickVideo(
       source: ImageSource.gallery,
     );
 
-    if (video != null){
+    if (video != null) {
       setState(() {
         this.video = video;
       });
     }
-
   }
 
-  BoxDecoration getBoxDecoration(){
+  BoxDecoration getBoxDecoration() {
     return BoxDecoration(
       // 그라데이션 색상 적용
       gradient: LinearGradient(
@@ -68,11 +71,12 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
-  Widget renderVideo(){
+  Widget renderVideo() {
     return Center(
       child: CustomVideoPlayer(
         video: video!, // 2. 선택된 동영상 입력
-      )
+        onNewVideoPressed: onNewVideoPressed,
+      ),
     );
   }
 }

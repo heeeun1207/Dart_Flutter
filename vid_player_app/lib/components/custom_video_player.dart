@@ -10,8 +10,12 @@ class CustomVideoPlayer extends StatefulWidget {
   // XFile은 ImagePicker로 영상 또는 이미지를 선택했을 때 반환하는 타입
   final XFile video;
 
+  // 새로운 동영상을 선택하면 실행되는 함수
+  final GestureTapCallback onNewVideoPressed;
+
   const CustomVideoPlayer({
     required this.video, // 상위에서 선택한 동영상 주입하기
+    required this.onNewVideoPressed,
     Key? key,
   }) : super(key: key);
 
@@ -22,6 +26,16 @@ class CustomVideoPlayer extends StatefulWidget {
 class _CustomVideoPlayer extends State<CustomVideoPlayer> {
   // 1.동영상을 조작하는 컨트롤러
   VideoPlayerController? videoController;
+
+  // covariant 라는 키워드는 CustomVideoPlayer의 상속된 값도 허가한다.
+  @override
+  void didUpdateWidget(covariant CustomVideoPlayer oldWidget){
+    super.didUpdateWidget(oldWidget);
+    // 새로 선택한 동영상이 같은 동영상인지 확인
+    if(oldWidget.video.path != widget.video.path){
+      initializeController();
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -100,7 +114,7 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
           Align( // 오른쪽 위 : 새 동영상 아이콘 배치
             alignment:Alignment.topRight,
             child: CustomIconButton(
-              onPressed: (){},
+              onPressed: widget.onNewVideoPressed,
               iconData: Icons.photo_camera_back,
             ),
           ),
@@ -133,10 +147,10 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
 void onReversePressed() {
   final currentPosition = videoController!.value.position;
 
-  Duration position = Duration();
+  Duration position = const Duration();
 
   if (currentPosition.inSeconds > 3) {
-    position = currentPosition - Duration(seconds: 3);
+    position = currentPosition - const Duration(seconds: 3);
   }
 
   videoController!.seekTo(position);
@@ -149,9 +163,9 @@ void onForwardPressed() { // 앞으로 감기 버튼 눌렀을 때 실행할 함
   Duration position = maxPosition; // 동영상 길이로 실행 위치 초기화
 
   // 동영상 길이에서 3초를 뺀 값보다 현재 위치가 짧을 때만 3초 더하기  = 3초 넘기기
-  if((maxPosition - Duration(seconds: 3)).inSeconds >
+  if((maxPosition - const Duration(seconds: 3)).inSeconds >
       currentPosition.inSeconds){
-    position = currentPosition + Duration(seconds: 3);
+    position = currentPosition + const Duration(seconds: 3);
   }
 
   videoController!.seekTo(position);
