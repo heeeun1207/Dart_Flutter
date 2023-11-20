@@ -37,9 +37,28 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
 
     await videoController.initialize();
 
+    // 컨트롤러 속성이 변경될 때마다 실행할 함수 등록
+    videoController.addListener(videoControllerListener);
+
     setState(() {
       this.videoController = videoController;
     });
+  }
+
+  // 동영상의 재생 상태가 변경될 때마다
+  // setState() 를 실행해서 build()를 재실행한다.
+  void videoControllerListener() {
+    setState(() {
+
+    });
+  }
+  // State가 폐기될 때 같이 폐기할 함수를 실행한다.
+  @override
+  void dispose(){
+
+    // Listener 삭제
+    videoController?.removeListener(videoControllerListener);
+    super.dispose();
   }
 
   @override
