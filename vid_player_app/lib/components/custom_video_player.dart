@@ -107,7 +107,7 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
               right: 0,
               left: 0,
               child: Padding(
-               padding: EdgeInsets.symmetric(horizontal: 8.0),
+               padding: const EdgeInsets.symmetric(horizontal: 8.0),
                child: Row(
                 children: [
                   renderTimeTextFromDuration(
@@ -177,7 +177,7 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
     // Duration 값을 보기 편한 상태로 변환
     return Text(
       '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}',
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
       ),
     );
