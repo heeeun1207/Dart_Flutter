@@ -106,16 +106,34 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
               bottom: 0,
               right: 0,
               left: 0,
-              child: Slider(
-                onChanged: (double val) {
-                  videoController!.seekTo(
-                    Duration(seconds: val.toInt()),
-                  );
-                },
-                value: videoController!.value.position.inSeconds.toDouble(),
-                min: 0,
-                max: videoController!.value.duration.inSeconds.toDouble(),
+              child: Padding(
+               padding: EdgeInsets.symmetric(horizontal: 8.0),
+               child: Row(
+                children: [
+                  renderTimeTextFromDuration(
+                // 동영상 현재 위치
+                videoController!.value.position,
+                ),
+                Expanded(
+                  child: Slider( // Slider 가 남는 공간을 모두 차지하도록 구현
+                    onChanged: (double val) {
+                      videoController!.seekTo(
+                      Duration(seconds: val.toInt()),
+                      );
+                      },
+                      value: videoController!.value.position.inSeconds.toDouble(),
+                      min: 0,
+                      max: videoController!.value.duration.inSeconds.toDouble(),
+                 ),
+                ),
+               renderTimeTextFromDuration(
+
+                // 동영상 총 길이
+                videoController!.value.duration,
+                  ),
+                ],
               ),
+            ),
             ),
             // showControls이 true일 때만 아이콘 보여주기
             if (showControls)
@@ -151,6 +169,16 @@ class _CustomVideoPlayer extends State<CustomVideoPlayer> {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget renderTimeTextFromDuration(Duration duration){
+    // Duration 값을 보기 편한 상태로 변환
+    return Text(
+      '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}',
+      style: TextStyle(
+        color: Colors.white,
       ),
     );
   }
