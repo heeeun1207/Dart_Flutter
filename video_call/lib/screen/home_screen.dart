@@ -68,3 +68,34 @@ class _Logo extends StatelessWidget{
   }
 }
 
+class _Image extends StatelessWidget {
+  const _Image({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return Center(
+      child: Image.asset(
+        'asset/img/home_img.png',
+      ),
+    );
+  }
+}
+
+// 임시 입장버튼 만들기
+class _EntryButton extends StatelessWidget{
+  const _EntryButton ({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ElevatedButton(
+            onPressed:() {},
+            child: Text('입장하기'),
+        ),
+      ],
+    );
+  }
+}
