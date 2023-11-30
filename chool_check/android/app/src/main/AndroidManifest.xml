@@ -1,8 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--상세 위치 권한 등록-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
         android:label="chool_check"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!--구글 지도 API 키 입력-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="api" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
