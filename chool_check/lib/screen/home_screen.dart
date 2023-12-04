@@ -5,8 +5,13 @@ import 'package:geolocator/geolocator.dart';
 class HomeScreen extends StatelessWidget {
   static final LatLng parkLatLng = LatLng( // 지도 초기화 위치
     36.3567955, // 위도
-    127.3848277, // 경도
+    127.3848277, // 경도시
   );
+// 지정한 위치 (공원 = parkLatLng) 마커 선언
+static final Marker marker = Marker(
+  markerId: MarkerId('park'),
+  position: parkLatLng,
+);
 
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -36,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                     target: parkLatLng,
                     zoom: 16,
                 ),
+                  markers: Set.from([marker]), // Set으로 Marker 제공
               ),
             ),
               Expanded(
