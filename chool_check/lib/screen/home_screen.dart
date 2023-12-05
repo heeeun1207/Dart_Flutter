@@ -5,13 +5,23 @@ import 'package:geolocator/geolocator.dart';
 class HomeScreen extends StatelessWidget {
   static final LatLng parkLatLng = LatLng( // 지도 초기화 위치
     36.3567955, // 위도
-    127.3848277, // 경도시
+    127.3848277, // 경도
   );
 // 지정한 위치 (공원 = parkLatLng) 마커 선언
 static final Marker marker = Marker(
   markerId: MarkerId('park'),
   position: parkLatLng,
 );
+//현재 위치 반경 표시하기
+  static final Circle circle = Circle(
+    circleId:CircleId('choolcheckCircle'),
+    center: parkLatLng, // 원의 중심이 되는 위치. LatLng값 제공
+    fillColor: Colors.blue.withOpacity(0.5), // 원의 색상
+    radius: 100, // 원의 반지름 (미터 단위)
+    strokeColor: Colors.blue, // 원의 테두리 색상
+    strokeWidth: 1, // 원의 테두리 두께
+  );
+
 
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -42,6 +52,7 @@ static final Marker marker = Marker(
                     zoom: 16,
                 ),
                   markers: Set.from([marker]), // Set으로 Marker 제공
+                  circles: Set.from([circle]), // Set으로 Circle 제공
               ),
             ),
               Expanded(
