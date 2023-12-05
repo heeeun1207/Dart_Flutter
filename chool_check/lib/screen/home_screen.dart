@@ -4,14 +4,14 @@ import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatelessWidget {
   static final LatLng parkLatLng = LatLng( // 지도 초기화 위치
-    36.3567955, // 위도
-    127.3848277, // 경도
+    36.3567,
+    127.3847,
   );
 // 지정한 위치 (공원 = parkLatLng) 마커 선언
-static final Marker marker = Marker(
-  markerId: MarkerId('park'),
-  position: parkLatLng,
-);
+  static final Marker marker = Marker(
+    markerId: MarkerId('park'),
+    position: parkLatLng,
+  );
 //현재 위치 반경 표시하기
   static final Circle circle = Circle(
     circleId:CircleId('choolcheckCircle'),
@@ -30,62 +30,109 @@ static final Marker marker = Marker(
     return Scaffold(
       appBar: renderAppBar(),
       body: FutureBuilder<String>(
-        future: checkPermission(),
-        builder: (context, snapshot){
-          // 로딩 상태
-          if(!snapshot.hasData &&
-          snapshot.connectionState == ConnectionState.waiting) {
+          future: checkPermission(),
+          builder: (context, snapshot){
+            // 로딩 상태
+            if(!snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            // 권한이 허가된 상태
+            if(snapshot.data == '위치 권한이 허가 되었습니다.'){
+              return Column(   // 지도와 출근하기(footer)나눠주기
+                children: [
+                  Expanded( // 2/3만큼 공간 차지
+                    flex: 2,
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: parkLatLng,
+                        zoom: 16,
+                      ),
+                      myLocationEnabled: true, // 내 위치 지도에 보여주기
+                      markers: Set.from([marker]), // Set으로 Marker 제공
+                      circles: Set.from([circle]), // Set으로 Circle 제공
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(  // 나머지 1/3만큼 공간차지
+                      mainAxisAlignment: MainAxisAlignment.center, // Corrected property name
+                      children: [
+                        Icon( // 시계 아이콘
+                          Icons.timelapse_outlined, // Corrected icon name
+                          color: Colors.blue,
+                          size: 50.0,
+                        ),
+                        SizedBox(height: 20.0), // Corrected widget name
+                        ElevatedButton( // [출근하기] 버튼
+                          onPressed: () async {
+                            final curPosition = await Geolocator
+                                .getCurrentPosition(); // 현재 위치
+
+                            final distance = Geolocator.distanceBetween(
+                              curPosition.latitude, // 현재 위치 위도
+                              curPosition.longitude, // 현재 위치 경도
+                              parkLatLng.latitude, // 공원 위치 위도
+                              parkLatLng.longitude, // 공원 위치 경도
+                            );
+
+                            bool canCheck =
+                                distance < 100; // 100미터 이내에 있으면 출근 가능
+
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: Text('출근하기'),
+
+                                  // 출근 가능 여부에 따라서 다른 메시지 제공
+                                  content: Text(
+                                    canCheck? '출근을 하시겠습니까?' : '출근을 할 수 없는 위치입니다.',
+                                  ),
+                                  actions: [
+                                    TextButton(
+
+                                      // 취소를 누르면 false 반환
+                                      onPressed: () {
+                                        Navigator.of(context).pop(false);
+                                      },
+                                      child: Text('취소'),
+                                    ),
+                                    if (canCheck) // 출근 가능한 상태일때만 [출근하기]버튼 제공
+                                      TextButton(
+
+                                        // 출근하기 누르면 true 반환
+                                        onPressed: (){
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        child: Text('출근하기'),
+                                      ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Text('출근하기!'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            // 권한 없는 상태
             return Center(
-              child: CircularProgressIndicator(),
+              child:Text(
+                snapshot.data.toString(),
+              ),
             );
           }
-
-          // 권한이 허가된 상태
-          if(snapshot.data == '위치 권한이 허가 되었습니다.'){
-            return Column(   // 지도와 출근하기(footer)나눠주기
-              children: [
-              Expanded( // 2/3만큼 공간 차지
-                flex: 2,
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: parkLatLng,
-                    zoom: 16,
-                ),
-                  markers: Set.from([marker]), // Set으로 Marker 제공
-                  circles: Set.from([circle]), // Set으로 Circle 제공
-              ),
-            ),
-              Expanded(
-                child: Column(  // 나머지 1/3만큼 공간차지
-                  mainAxisAlignment: MainAxisAlignment.center, // Corrected property name
-                  children: [
-                 Icon( // 시계 아이콘
-                  Icons.timelapse_outlined, // Corrected icon name
-                  color: Colors.blue,
-                  size: 50.0,
-                ),
-                  SizedBox(height: 20.0), // Corrected widget name
-                  ElevatedButton( // [출근하기] 버튼
-                    onPressed: () {},
-                      child: Text('출근하기!'),
-                 ),
-                ],
-                ),
-              ),
-            ],
-          );
-    }
-
-          // 권한 없는 상태
-          return Center(
-            child:Text(
-            snapshot.data.toString(),
-          ),
-          );
-          }
-          ),
-          );
-        }
+      ),
+    );
+  }
 
   AppBar renderAppBar() {
     return AppBar(
@@ -131,4 +178,3 @@ Future<String> checkPermission() async {
   // 모든 상황에 대한 반환 값을 명시
   return '위치 권한이 허가 되었습니다.'; // 기본 반환 값
 }
-
