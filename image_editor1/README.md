@@ -1,16 +1,42 @@
-# image_editor1
+# image_editor
 
-A new Flutter project.
+이미지 수정하는 앱 만들기
 
-## Getting Started
+## 기능
 
-This project is a starting point for a Flutter application.
+- 갤러리에서 이미지 선택하기
+- 스티커를 탭해서 이미지에 올리기
+- 삭제 버튼 만들어서 추가한 이미지 삭제하기
+- 저장 버튼 만들어서 수정한 이미지 갤러리에 추가하기
 
-A few resources to get you started if this is your first Flutter project:
+## 조작법
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 이미지 선택버튼 눌러서 이미지 불러오기
+- 스티커를 탭해서 추가하고 크기 및 위치 조절하기
+- 스티커를 선택한 후 삭제하는 버튼 만들기
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 사전지식
+
+- GestureDetector 와 제스처
+
+### 사전준비
+
+- 이미지, 폰트 추가
+- pubspec.yaml 설정
+- 네이티브 권한 설정
+- 프로젝트 초기화
+
+### 레이아웃 구성하기
+
+### 구현하기
+
+- 앱바
+- Image 선택기능
+- Body
+- Footer
+- EmotionSticker 위젯
+- 스티커 붙이기
+- 스티커 삭제
+- 이미지 저장
+
+### 테스트하기
