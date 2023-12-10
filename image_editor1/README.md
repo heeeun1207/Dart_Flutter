@@ -34,7 +34,7 @@
 - Image 선택기능
 - Body
 - Footer
-- EmotionSticker 위젯
+- EmotionSticker 위젯 (진행중)
 - 스티커 붙이기
 - 스티커 삭제
 - 이미지 저장
