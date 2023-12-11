@@ -1,4 +1,4 @@
-# image_editor -> flutter_app 프로젝트로 옮겨서 시작!!
+# image_editor -> VariousFlutterApps 프로젝트로 옮겨서 시작!!
 
 이미지 수정하는 앱 만들기
 
